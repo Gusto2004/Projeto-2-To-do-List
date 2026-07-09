@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="dark">
-    <div class="topo">
-      <button id="toggle-tema" class="toggle-tema" aria-label="Alternar tema">
-        ☀️
-      </button>
-    </div>
     <main class="app">
-      <h1>As minhas tarefas</h1>
+      <div class="topo">
+        <h1>As minhas tarefas</h1>
+        <button id="toggle-tema" class="toggle-tema" aria-label="Alternar tema">
+          ☀️
+        </button>
+      </div>
 
       <form id="form-tarefa">
         <input
@@ -24,6 +24,8 @@
         />
         <button type="submit">Adicionar</button>
       </form>
+
+      <p id="contador" class="contador"></p>
 
       <ul id="lista-tarefas">
         <!-- as tarefas vão aparecer aqui, criadas pelo JavaScript -->
