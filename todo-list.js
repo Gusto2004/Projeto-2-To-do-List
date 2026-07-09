@@ -33,7 +33,10 @@ function renderizarTarefas() {
 
     li.innerHTML = `
       <span class="tarefa__texto">${tarefa.texto}</span>
-      <button class="tarefa__apagar" aria-label="Apagar tarefa">✕</button>
+      <div class="tarefa__acoes">
+        <button class="tarefa__editar" aria-label="Editar tarefa">✎</button>
+        <button class="tarefa__apagar" aria-label="Apagar tarefa">✕</button>
+      </div>
     `;
 
     lista.appendChild(li);
@@ -65,36 +68,26 @@ lista.addEventListener("click", function (evento) {
 
   const id = Number(li.dataset.id);
 
-  // Se clicou no botão de apagar
   if (evento.target.classList.contains("tarefa__apagar")) {
+    // Apagar
     tarefas = tarefas.filter((tarefa) => tarefa.id !== id);
+  } else if (evento.target.classList.contains("tarefa__editar")) {
+    // Editar
+    const tarefa = tarefas.find((tarefa) => tarefa.id === id);
+    if (tarefa) {
+      const novoTexto = prompt("Editar tarefa:", tarefa.texto);
+      if (novoTexto !== null && novoTexto.trim() !== "") {
+        tarefa.texto = novoTexto.trim();
+      }
+    }
   } else {
-    // Caso contrário, alterna concluída
+    // Alternar concluída
     const tarefa = tarefas.find((tarefa) => tarefa.id === id);
     if (tarefa) tarefa.concluida = !tarefa.concluida;
   }
 
   guardarTarefas();
   renderizarTarefas();
-});
-
-// Editar tarefa com duplo-clique no texto
-lista.addEventListener("dblclick", function (evento) {
-  if (!evento.target.classList.contains("tarefa__texto")) return;
-
-  const li = evento.target.closest(".tarefa");
-  const id = Number(li.dataset.id);
-  const tarefa = tarefas.find((tarefa) => tarefa.id === id);
-  if (!tarefa) return;
-
-  const novoTexto = prompt("Editar tarefa:", tarefa.texto);
-
-  // Só atualiza se o utilizador escreveu algo e não cancelou
-  if (novoTexto !== null && novoTexto.trim() !== "") {
-    tarefa.texto = novoTexto.trim();
-    guardarTarefas();
-    renderizarTarefas();
-  }
 });
 
 renderizarTarefas();
