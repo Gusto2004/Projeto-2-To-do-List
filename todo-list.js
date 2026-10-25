@@ -24,21 +24,33 @@ function updateCounter() {
 }
 
 function renderTasks() {
-  list.innerHTML = "";
+  list.replaceChildren();
 
   tasks.forEach(function (task) {
     const li = document.createElement("li");
     li.className = "task" + (task.completed ? " completed" : "");
     li.dataset.id = task.id;
 
-    li.innerHTML = `
-      <span class="task__text">${task.text}</span>
-      <div class="task__actions">
-        <button class="task__edit" aria-label="Edit task">✎</button>
-        <button class="task__delete" aria-label="Delete task">✕</button>
-      </div>
-    `;
+    // textContent (not innerHTML) so the task text is never treated as HTML
+    const text = document.createElement("span");
+    text.className = "task__text";
+    text.textContent = task.text;
 
+    const actions = document.createElement("div");
+    actions.className = "task__actions";
+
+    const editButton = document.createElement("button");
+    editButton.className = "task__edit";
+    editButton.setAttribute("aria-label", "Edit task");
+    editButton.textContent = "✎";
+
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "task__delete";
+    deleteButton.setAttribute("aria-label", "Delete task");
+    deleteButton.textContent = "✕";
+
+    actions.append(editButton, deleteButton);
+    li.append(text, actions);
     list.appendChild(li);
   });
 
