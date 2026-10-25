@@ -1,34 +1,34 @@
 <!doctype html>
-<html lang="pt">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lista de Tarefas</title>
+    <title>To-do List</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="dark">
     <main class="app">
-      <div class="topo">
-        <h1>As minhas tarefas</h1>
-        <button id="toggle-tema" class="toggle-tema" aria-label="Alternar tema">
+      <div class="header">
+        <h1>My tasks</h1>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
           ☀️
         </button>
       </div>
 
-      <form id="form-tarefa">
+      <form id="task-form">
         <input
           type="text"
-          id="input-tarefa"
-          placeholder="Escreve uma tarefa..."
+          id="task-input"
+          placeholder="Write a task..."
           autocomplete="off"
         />
-        <button type="submit">Adicionar</button>
+        <button type="submit">Add</button>
       </form>
 
-      <p id="contador" class="contador"></p>
+      <p id="counter" class="counter"></p>
 
-      <ul id="lista-tarefas">
-        <!-- as tarefas vão aparecer aqui, criadas pelo JavaScript -->
+      <ul id="task-list">
+        <!-- the tasks will appear here, created by JavaScript -->
       </ul>
     </main>
 

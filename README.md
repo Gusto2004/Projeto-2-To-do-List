@@ -1,42 +1,42 @@
-# Lista de Tarefas (To-Do List)
+# To-do List
 
-App para gerir tarefas do dia a dia, feita em JavaScript puro (sem frameworks), como segundo projeto de prática.
+An app to manage everyday tasks, built with vanilla JavaScript (no frameworks). It was my second practice project.
 
-## Funcionalidades
+## Features
 
-- Adicionar novas tarefas
-- Marcar tarefas como concluídas (clicando nelas)
-- Editar o texto de uma tarefa já criada
-- Apagar tarefas
-- Contador de tarefas por fazer
-- Modo escuro / claro com botão de alternância, que memoriza a preferência entre visitas
-- As tarefas ficam guardadas no browser (`localStorage`), mesmo depois de fechar ou recarregar a página
+- Add new tasks
+- Mark tasks as completed (by clicking them)
+- Edit the text of an existing task
+- Delete tasks
+- Counter of tasks left to do
+- Dark / light mode with a toggle button, remembered between visits
+- Tasks are saved in the browser (`localStorage`), even after closing or reloading the page
 
-## Tecnologias
+## Technologies
 
 - HTML5
-- CSS3 (variáveis CSS para os temas)
-- JavaScript (DOM, eventos, `localStorage`)
+- CSS3 (CSS variables for the themes)
+- JavaScript (DOM, events, `localStorage`)
 
-## Conceitos praticados
+## Concepts practiced
 
-- Seleção de elementos do DOM (`querySelector`)
-- Eventos e delegação de eventos (`addEventListener`)
-- Identificação de cada tarefa por um `id` único (em vez do índice do array), para uma gestão de dados mais robusta
-- Manipulação de arrays de objetos (`push`, `filter`, `find`, `forEach`)
-- Persistência de dados no browser (`localStorage`, `JSON.stringify` / `JSON.parse`)
-- Padrão de "dados como fonte de verdade" — o array `tarefas` controla tudo, e o HTML é sempre reconstruído a partir dele
+- Selecting DOM elements (`querySelector`)
+- Events and event delegation (`addEventListener`)
+- Identifying each task by a unique `id` (instead of the array index), for more robust data handling
+- Working with arrays of objects (`push`, `filter`, `find`, `forEach`)
+- Persisting data in the browser (`localStorage`, `JSON.stringify` / `JSON.parse`)
+- The "data as the source of truth" pattern: the `tasks` array controls everything, and the HTML is always rebuilt from it
 
-## Como correr
+## How to run
 
-Abre o `index.html` no browser, ou usa a extensão "Live Server" no VSCode para veres as alterações em tempo real.
+Open `index.html` in your browser, or use the "Live Server" extension in VS Code to see changes in real time.
 
 ## Demo
 
-🔗 [Ver site ao vivo](https://gusto2004.github.io/Projeto-2-To-do-List/)
+🔗 [View the live site](https://gusto2004.github.io/Projeto-2-To-do-List/)
 
-## Próximos passos
+## Next steps
 
-- [ ] Adicionar filtros (todas / pendentes / concluídas)
-- [ ] Permitir reordenar tarefas (arrastar e largar)
-- [ ] Adicionar uma data-limite opcional a cada tarefa
+- [ ] Add filters (all / pending / completed)
+- [ ] Allow reordering tasks (drag and drop)
+- [ ] Add an optional due date to each task

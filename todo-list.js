@@ -1,119 +1,119 @@
-const form = document.querySelector("#form-tarefa");
-const input = document.querySelector("#input-tarefa");
-const lista = document.querySelector("#lista-tarefas");
-const contador = document.querySelector("#contador");
+const form = document.querySelector("#task-form");
+const input = document.querySelector("#task-input");
+const list = document.querySelector("#task-list");
+const counter = document.querySelector("#counter");
 
-let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-function guardarTarefas() {
-  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function atualizarContador() {
-  const pendentes = tarefas.filter((tarefa) => !tarefa.concluida).length;
+function updateCounter() {
+  const pending = tasks.filter((task) => !task.completed).length;
 
-  if (tarefas.length === 0) {
-    contador.textContent = "Sem tarefas ainda.";
-  } else if (pendentes === 0) {
-    contador.textContent = "Tudo feito! 🎉";
-  } else if (pendentes === 1) {
-    contador.textContent = "1 tarefa por fazer";
+  if (tasks.length === 0) {
+    counter.textContent = "No tasks yet.";
+  } else if (pending === 0) {
+    counter.textContent = "All done! 🎉";
+  } else if (pending === 1) {
+    counter.textContent = "1 task left";
   } else {
-    contador.textContent = `${pendentes} tarefas por fazer`;
+    counter.textContent = `${pending} tasks left`;
   }
 }
 
-function renderizarTarefas() {
-  lista.innerHTML = "";
+function renderTasks() {
+  list.innerHTML = "";
 
-  tarefas.forEach(function (tarefa) {
+  tasks.forEach(function (task) {
     const li = document.createElement("li");
-    li.className = "tarefa" + (tarefa.concluida ? " concluida" : "");
-    li.dataset.id = tarefa.id;
+    li.className = "task" + (task.completed ? " completed" : "");
+    li.dataset.id = task.id;
 
     li.innerHTML = `
-      <span class="tarefa__texto">${tarefa.texto}</span>
-      <div class="tarefa__acoes">
-        <button class="tarefa__editar" aria-label="Editar tarefa">✎</button>
-        <button class="tarefa__apagar" aria-label="Apagar tarefa">✕</button>
+      <span class="task__text">${task.text}</span>
+      <div class="task__actions">
+        <button class="task__edit" aria-label="Edit task">✎</button>
+        <button class="task__delete" aria-label="Delete task">✕</button>
       </div>
     `;
 
-    lista.appendChild(li);
+    list.appendChild(li);
   });
 
-  atualizarContador();
+  updateCounter();
 }
 
-form.addEventListener("submit", function (evento) {
-  evento.preventDefault();
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
 
-  const textoTarefa = input.value.trim();
-  if (textoTarefa === "") return;
+  const taskText = input.value.trim();
+  if (taskText === "") return;
 
-  tarefas.push({
+  tasks.push({
     id: Date.now(),
-    texto: textoTarefa,
-    concluida: false,
+    text: taskText,
+    completed: false,
   });
 
-  guardarTarefas();
-  renderizarTarefas();
+  saveTasks();
+  renderTasks();
   input.value = "";
 });
 
-lista.addEventListener("click", function (evento) {
-  const li = evento.target.closest(".tarefa");
+list.addEventListener("click", function (event) {
+  const li = event.target.closest(".task");
   if (!li) return;
 
   const id = Number(li.dataset.id);
 
-  if (evento.target.classList.contains("tarefa__apagar")) {
-    // Apagar
-    tarefas = tarefas.filter((tarefa) => tarefa.id !== id);
-  } else if (evento.target.classList.contains("tarefa__editar")) {
-    // Editar
-    const tarefa = tarefas.find((tarefa) => tarefa.id === id);
-    if (tarefa) {
-      const novoTexto = prompt("Editar tarefa:", tarefa.texto);
-      if (novoTexto !== null && novoTexto.trim() !== "") {
-        tarefa.texto = novoTexto.trim();
+  if (event.target.classList.contains("task__delete")) {
+    // Delete
+    tasks = tasks.filter((task) => task.id !== id);
+  } else if (event.target.classList.contains("task__edit")) {
+    // Edit
+    const task = tasks.find((task) => task.id === id);
+    if (task) {
+      const newText = prompt("Edit task:", task.text);
+      if (newText !== null && newText.trim() !== "") {
+        task.text = newText.trim();
       }
     }
   } else {
-    // Alternar concluída
-    const tarefa = tarefas.find((tarefa) => tarefa.id === id);
-    if (tarefa) tarefa.concluida = !tarefa.concluida;
+    // Toggle completed
+    const task = tasks.find((task) => task.id === id);
+    if (task) task.completed = !task.completed;
   }
 
-  guardarTarefas();
-  renderizarTarefas();
+  saveTasks();
+  renderTasks();
 });
 
-renderizarTarefas();
+renderTasks();
 
-// ===== TEMA (com memória) =====
-const botaoTema = document.querySelector("#toggle-tema");
+// ===== THEME (remembered between visits) =====
+const themeButton = document.querySelector("#theme-toggle");
 const body = document.body;
 
-const temaGuardado = localStorage.getItem("tema");
+const savedTheme = localStorage.getItem("theme");
 
-if (temaGuardado === "claro") {
+if (savedTheme === "light") {
   body.classList.remove("dark");
-  botaoTema.textContent = "🌙";
+  themeButton.textContent = "🌙";
 } else {
   body.classList.add("dark");
-  botaoTema.textContent = "☀️";
+  themeButton.textContent = "☀️";
 }
 
-botaoTema.addEventListener("click", function () {
+themeButton.addEventListener("click", function () {
   body.classList.toggle("dark");
 
   if (body.classList.contains("dark")) {
-    botaoTema.textContent = "☀️";
-    localStorage.setItem("tema", "escuro");
+    themeButton.textContent = "☀️";
+    localStorage.setItem("theme", "dark");
   } else {
-    botaoTema.textContent = "🌙";
-    localStorage.setItem("tema", "claro");
+    themeButton.textContent = "🌙";
+    localStorage.setItem("theme", "light");
   }
 });
